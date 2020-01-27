@@ -13,6 +13,10 @@ namespace RecipeBook.Models
         public string Measure { get; set; }
         public int? RecipeId { get; set; }
         public Recipe Recipe { get; set; }
+        public Ingredient()
+        {
+                
+        }
         public Ingredient(string name = "", int quantity = 0, string measure = "")
         {
             Name = name;

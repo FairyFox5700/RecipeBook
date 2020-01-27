@@ -7,13 +7,16 @@ namespace RecipeBook.Models
     {
         [Key]
         [ForeignKey("Recipe")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int Calories { get; }
-        public int Carbohydrates { get; }
-        public int Fat { get; }
-        public int Proteins { get; }
+        public int Calories { get; set; }
+        public int Carbohydrates { get; set; }
+        public int Fat { get; set; }
+        public int Proteins { get; set; }
         public Recipe Recipe { get; set; }
+        public Nutritious()
+        {
+                
+        }
         public Nutritious(int calories = 0, int carbonhydrates = 0, int fat = 0, int proteins = 0)
         {
             Calories = calories;

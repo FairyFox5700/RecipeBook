@@ -3,105 +3,48 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RecipeBook"
+        xmlns:local="clr-namespace:RecipeBook.ViewModels"
+        xmlns:vm="clr-namespace:RecipeBook.ViewModels"
+        xmlns:v="clr-namespace:RecipeBook.Views"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         mc:Ignorable="d"
-        Title="Home" Height="650" Width="1000" SizeToContent="Height" Topmost="True">
+        Title="Home" Height="612.667" Width="1000" SizeToContent="Height" Topmost="True">
     <Window.Resources>
-
-        <!--<convert:ImageSourceConverter x:Key="ImageConverter"/>,Converter={StaticResource ImageConverter-->
-        <DataTemplate x:Key="listTemplate">
-            <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                <materialDesign:Card Width="215" Height="160">
-                    <Grid Background="#FF3A0014" Margin="0,-13.333,0,0" >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="140" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Image Source="{Binding Path=ImagePath}" Height="140" Stretch="UniformToFill" Margin="0,0,2,0" />
-                        <TextBlock FontWeight="Bold" Grid.Row="1" HorizontalAlignment="Left" Width="208.653" Margin="10,5,0,0" FontFamily="Lucida Sans Unicode" FontSize="16" Foreground="White"><Run Text="{Binding Path=Name}"/></TextBlock>
-                        <TextBlock FontWeight="Bold" Grid.Row="1" HorizontalAlignment="Right" Width="31.347" Foreground="White" Margin="0,10"><Run Text="{Binding Path=CountOfRecipes}" /></TextBlock>
-                    </Grid>
-                </materialDesign:Card>
-            </StackPanel>
+        <DataTemplate DataType="{x:Type vm:CategoriesViewModel}">
+            <v:CategoriesView/>
         </DataTemplate>
-
-
-        <Storyboard x:Key="CloseMenu">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="ToggledMenu">
-                <EasingDoubleKeyFrame KeyTime="0" Value="235"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="125"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="MainGrid">
-                <EasingDoubleKeyFrame KeyTime="0" Value="114"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="59"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="MainGrid">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0.774"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.887"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="OpenMenu">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="ToggledMenu">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="125"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="235"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="MainGrid">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="59"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="114"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="MainGrid">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.887"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.774"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-
+        <DataTemplate DataType="{x:Type vm:RecipesViewModel}">
+            <v:RecipesView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ItemViewModel}">
+            <v:ItemView/>
+        </DataTemplate>
+        <!--<convert:ImageSourceConverter x:Key="ImageConverter"/>,Converter={StaticResource ImageConverter-->
     </Window.Resources>
-    <Window.Triggers>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpenMenu">
-            <BeginStoryboard Storyboard="{StaticResource OpenMenu}"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonCloseMenu">
-            <BeginStoryboard Storyboard="{StaticResource CloseMenu}"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-            <BeginStoryboard Storyboard="{StaticResource OpenMenu}"/>
-            <BeginStoryboard Storyboard="{StaticResource CloseMenu}"/>
-            <BeginStoryboard Storyboard="{StaticResource OpenMenu}"/>
-        </EventTrigger>
-
-    </Window.Triggers>
-    <Grid Margin="-18.667,0,22.666,5.334">
+    <Grid >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto" MinWidth="274"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height ="Auto"/>
+            <RowDefinition Height ="Auto" MinHeight="42"/>
             <RowDefinition Height ="*"/>
         </Grid.RowDefinitions>
-        <materialDesign:ColorZone Grid.ColumnSpan="3" Grid.Row="0" Mode="PrimaryMid" Padding="16" Background="#FF69033A" Margin="0,0,-19.667,0" Height="70" HorizontalAlignment="Right" Width="991" Grid.RowSpan="2" Panel.ZIndex="1">
-            <DockPanel Margin="-14,-17,-12.667,-12">
-               
-                <StackPanel Orientation="Horizontal" materialDesign:RippleAssist.IsCentered="True" Height="30" Margin="0,0,0,10.223">
+        <materialDesign:ColorZone Grid.ColumnSpan="2" Grid.Row="0" Mode="PrimaryMid"  Background="#FF69033A"  Height="50" Width="Auto" Panel.ZIndex="1" Grid.RowSpan="2" >
+            <DockPanel Margin="-14,-17,-12.667,0">
+
+                <StackPanel Orientation="Horizontal" materialDesign:RippleAssist.IsCentered="True" VerticalAlignment="Center">
                     <Button x:Name="ButtonOpenMenu" Height="40" Width="60" Margin="5,0,5,-10" HorizontalAlignment="Right" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="ButtonOpenMenu_Click">
                         <materialDesign:PackIcon Kind="Menu" Width="25" Height="25"/>
                     </Button>
                     <Button x:Name="ButtonCloseMenu" Visibility="Collapsed"  Height="40" Width="60" Margin="5,0,5,-10"  HorizontalAlignment="Right" VerticalAlignment="Top"  Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="ButtonCloseMenu_Click">
                         <materialDesign:PackIcon Kind="ArrowLeft" Width="25" Height="25"/>
                     </Button>
-             
+
                 </StackPanel>
             </DockPanel>
         </materialDesign:ColorZone>
-        <materialDesign:Card x:Name="ToggledMenu" Grid.Row="1" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" Padding="8" Margin="-236,68,9.333,-6.667">
+        <materialDesign:Card x:Name="ToggledMenu" Grid.Row="1" Grid.Column="0" Panel.ZIndex="0">
             <materialDesign:Card.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF69033A" Offset="0"/>
@@ -116,18 +59,18 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </materialDesign:Card.RenderTransform>
-            <Grid>
-                <ListBox Margin="0,0,0,317.667" Background="Transparent" BorderBrush="Transparent">
+            <Grid Grid.Row="1" Grid.Column="0" >
+                <ListBox Margin="0,0,0,317.667" Background="Transparent" BorderBrush="Transparent" >
                     <ListViewItem Height="50" Foreground="White" FontFamily="Rage Italic">
                         <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="AddCircleOutline"   Height="35" Width="40" />
-                            <Button  BorderBrush="Transparent" Content="Новый рецепт" Height="40" Background="Transparent" HorizontalAlignment="Left" FontFamily="Rage Italic" FontSize="22" Width="185"/>
+                            <Button Command="{Binding   GoToRecipes}"  BorderBrush="Transparent" Content="Новый рецепт" Height="40" Background="Transparent" HorizontalAlignment="Left" FontFamily="Rage Italic" FontSize="22" Width="185"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="50" Foreground="White" FontFamily="Rage Italic">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Category" Height="35" Width="40" />
-                            <Button BorderBrush="Transparent" Background="Transparent" Content="Категории" Height="40" FontFamily="Rage Italic" FontSize="22" Width="145"/>
+                            <Button Command="{Binding GoToCategories}"  BorderBrush="Transparent" Background="Transparent" Content="Категории" Height="40" FontFamily="Rage Italic" FontSize="22" Width="145"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="50" Foreground="White" FontFamily="Rage Italic">
@@ -158,26 +101,7 @@
                     </ListViewItem>
                 </ListBox>
             </Grid>
-
-
         </materialDesign:Card>
-
-        <Grid Grid.Column="1" Grid.Row="1" Background="AntiqueWhite"  x:Name="MainGrid" Margin="0,18.333,-20,-6.667" Panel.ZIndex="-2" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
-            <Grid.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Grid.RenderTransform>
-            <ListBox x:Name="calalogList" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" ItemTemplate="{StaticResource listTemplate}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0,0,0.001,0">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Columns="4" HorizontalAlignment="Stretch"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ListBox>
-        </Grid>
+        <ContentControl Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"    Content="{Binding CurrentPageViewModel}" Grid.Column="1" Margin="0,0,20,0" />
     </Grid>
 </Window>

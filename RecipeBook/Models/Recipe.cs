@@ -14,14 +14,14 @@ namespace RecipeBook.Models
         public virtual ICollection<Ingredient> Ingredients { get; set; }
         public int? CategoryId { get; set; }
         public Category Category { get; set; }
-        public virtual ICollection<RecipeImage> ImagePathes { get; set; }
+        public virtual IList<RecipeImage> ImagePathes { get; set; }
         public string VideoPath { get; set; }
         public string Notes { get; set; }
         public string Instruction { get; set; }
         public bool IsFavourite { get; set; }
         public string Source { get; set; }
-        public Nutritious Nutritious { get; set; }
-        public Rating Rating { get; set; }
+        public virtual Nutritious Nutritious { get; set; }
+        public int Rating { get; set; }
         public int NumberOfServings { get; set; }
         public Int64 CookTime { get; set; }
         [NotMapped]
